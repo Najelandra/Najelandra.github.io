@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr"> <!--dir le da la dirección al texto de izq a der en este caso-->
+  <head>
+    <meta charset="utf-8">
+    <title>Nina's Portfolio</title>
+    <link rel="stylesheet" href="estilo.css">
+   </head>
+   <body>
+      <p id="demo"></p>
+      <audio id="myAudio">
+        <source src="recursos/reel.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+      </audio>
+      <p>Click the buttons to play or pause the audio.</p>
+
+      <button onclick="playAudio()" type="button"> &#9658 Audio </button>
+      <button onclick="pauseAudio()" type="button">&#10074&#10074 Audio</button>
+
+      <div id="p5Canvas">
+        <!--Our sketch will go here! -->
+      </div>
+
+    <!--<canvas id="myCanvas" width="600" height="300">
+      <!-- <p>This is fallback content
+        for users of assistive technologies
+        or of browsers that don't have
+        full support for the Canvas API.</p> -->
+     <!-- </canvas> -->
+
+     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <script src="jcanvas.min.js"></script> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+    <script src="interactivo.js"></script>
+
+    </body>
+</html>
