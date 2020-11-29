@@ -79,7 +79,7 @@ var trazoEngEducArts =false;
 function preload() {
   // Ensure the .ttf or .otf font stored in the assets directory
   // is loaded before setup() and draw() are called
-  miFuente = loadFont('ReenieBeanie-Regular.ttf');
+  miFuente = loadFont('recursos/ReenieBeanie-Regular.ttf');
 }
 
 
