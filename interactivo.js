@@ -112,7 +112,7 @@ function setup() {
   sliderContacto.input(escribir);
   radioGral = canvas.width*sliderContacto.value()/100;
   radioGralPrev = radioGral;
-  //textFont(miFuente);
+  textFont(miFuente);
   //rotate(PI / 10.0);
   for(var i=10; i<45;i=i+5){
     RedibujarCirculos();
