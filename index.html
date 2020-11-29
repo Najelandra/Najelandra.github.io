@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" dir="ltr"> <!--dir le da la dirección al texto de izq a der en este caso-->
+<html lang="es" > <!--dir le da la dirección al texto de izq a der en este caso-->
   <head>
     <meta charset="utf-8">
     <title>Nina's Portfolio</title>
@@ -14,14 +14,42 @@
       <p>Click the buttons to play or pause the audio.</p>
 
       <button onclick="playAudio()" type="button"> &#9658 Audio </button>
-      <button onclick="pauseAudio()" type="button">&#10074&#10074 Audio</button>
+      <button onclick="pauseAudio()" type="button"> &#10074&#10074 Audio</button>
 
-      <div id="p5Canvas">
-        <!--Our sketch will go here! -->
-      </div>
+
+
+      <table >
+         <tr>
+            <th>
+              <div class="fotoPerfil">
+              <img src="img/perfil.jpg" alt="Avatar">
+              </div>
+
+              <h1>Hi! I'm Nina 🌋 </h1>
+
+              <div id=perfil>
+                Mechatronics engineer with experience in software quality assurance and software and hardware tasks.
+                Collaborator in science-art projects and educational projects. Proactive and creative,
+                ready to share new experiences with other people, strong teamwork, self-learning skills.
+                Seeking for expand my knowledge. I’m very interested in technical local development and open source models.
+              </div>
+              <div id="piePag">
+                (🌋 This is a Quechua word, it means: fire)
+              </div>
+
+
+            </th>
+            <th><div id="p5Canvas">
+              <!--Our sketch will go here! -->
+            </div>
+            </th>
+         </tr>
+      </table>
+
+
 
     <!--<canvas id="myCanvas" width="600" height="300">
-      <!-- <p>This is fallback content
+       <p>This is fallback content
         for users of assistive technologies
         or of browsers that don't have
         full support for the Canvas API.</p> -->
