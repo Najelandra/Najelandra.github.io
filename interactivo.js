@@ -5,7 +5,7 @@ var tiempoNav = 0;
 var d = new Date();
 var n = d.getTime();
 
-var button;
+
 
 var x = document.getElementById("myAudio"); //REcupera el elemento por ID
 
@@ -95,7 +95,7 @@ function setup() {
   radioCirc3 = canvas.width*0.5;
   centroGral = [canvas.width/2,canvas.height/2];
 
-  button = createImg('img/Tecnokids_Dicar.png');
+
   // button.position(19, 19);
   // button.mousePressed(changeBG);
 
