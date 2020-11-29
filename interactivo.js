@@ -108,7 +108,7 @@ function setup() {
   //sliderCurva = createSlider(0, 100, 10); //17 es el valor de apenas contacto entre los círculos
 
     // Set the position of slider on the canvas
-  sliderContacto.position(canvas.width*0.95, canvas.height*0.95);
+  sliderContacto.position(0, 0);
   sliderContacto.input(escribir);
   radioGral = canvas.width*sliderContacto.value()/100;
   radioGralPrev = radioGral;
