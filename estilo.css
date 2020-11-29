@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Oswald';
   font-style: Light;
-  font-weight: 400;
+  font-weight: 300;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/oswald/v35/TK3_WkUHHAIjg75cFRf3bXL8LICs169vsUZiZQ.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -23,8 +23,10 @@ body {
 }
 
 h1 {
-  color: navy;
-  margin-left: 20px;
+  color: rgb(210,210,210);
+  font-size: 60px;
+  text-align: left;
+  padding-left: 10px
 }
 
 #p5Canvas{
@@ -32,4 +34,37 @@ h1 {
   justify-content: center;
   align-content: center;
   font-family: 'Reenie Beanie', cursive;
+}
+#perfil{
+  font-weight:normal;
+  font-size: 25px;
+  text-align: left;
+}
+
+/* Create two equal columns that floats next to each other */
+span{
+  font-weight:normal;
+  text-align: left;
+}
+
+table{
+  /*border: 1px solid coral;*/
+  margin-left: auto;
+  margin-right: auto;
+  width:90%;
+}
+th{
+  /*border: 1px solid coral;*/
+  width: 50%;
+
+}
+
+img{
+  border-radius: 50%;
+}
+#piePag{
+  align-content: right;
+  text-align: right;
+  font-weight:normal;
+  font-size: 18px;
 }
