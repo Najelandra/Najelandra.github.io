@@ -61,7 +61,7 @@ var centroC3 = [0,0];
 var sliderContacto;
 //var sliderCurva;
 
-let fontsize = 40;
+
 var dibujado=false;
 var Eng = 0;
 var Arts = false;
@@ -108,7 +108,7 @@ function setup() {
   //sliderCurva = createSlider(0, 100, 10); //17 es el valor de apenas contacto entre los círculos
 
     // Set the position of slider on the canvas
-  sliderContacto.position(0, 0);
+  sliderContacto.position(anchoPantalla*0.95, altoPantalla*0.8 ); //al parecer esta locaclizacion es respecto a la pantalla gral
   sliderContacto.input(escribir);
   radioGral = canvas.width*sliderContacto.value()/100;
   radioGralPrev = radioGral;
@@ -185,7 +185,7 @@ function draw() {
     print(valorColorPx);
     noFill();
     textAlign(CENTER);
-    textSize(25);
+    textSize(30);
     stroke(255);
     text("New ways of expression",centroGral[0], centroGral[1]-radioCirc2*3/4);
 
@@ -207,7 +207,7 @@ function draw() {
       rotate(-PI / 4.0);
       noFill();
       textAlign(CENTER);
-      textSize(25);
+      textSize(30);
       stroke(255);
       text("Closing digital gaps",radioCirc1/4, radioCirc1*3/4);
 
@@ -227,7 +227,7 @@ function draw() {
     noFill();
     stroke(255);
     textAlign(CENTER);
-    textSize(25);
+    textSize(30);
 
 
 
@@ -237,7 +237,7 @@ function draw() {
 
       translate(centroGral[0], centroGral[1]);
       rotate(PI / 4.0);
-      textSize(25);
+      textSize(30);
       textAlign(CENTER)
       text("Learning through \n emotions",-radioCirc1/4, radioCirc1*3/4);
       noFill();
@@ -258,7 +258,7 @@ function draw() {
 
       translate(centroGral[0], centroGral[1]);
       textAlign(LEFT);
-      textSize(25);
+      textSize(35);
       noFill();
       stroke(255);
       text("Magic!",0,0);
