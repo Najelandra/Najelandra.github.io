@@ -8,14 +8,15 @@ var n = d.getTime();
 
 
 var x = document.getElementById("myAudio"); //REcupera el elemento por ID
-
-var alerta = confirm("Bienvenida(o) / Bem-vindo / Welcome \n I want to try I different way of surfing through this web. \n So explore, hope you enjoy!");
+var posX, posY;
+var abierto=false;
+/*var alerta = confirm("Bienvenida(o) / Bem-vindo / Welcome \n I want to try I different way of surfing through this web. \n So explore, hope you enjoy!");
   if (alerta == true) {
     var otraFecha = new Date();
     tiempoNav = otraFecha.getTime() - n;
   }
   tiempoNav = calcularTiempo(tiempoNav);
-  document.getElementById("demo").innerHTML = "Great! you spent: " + tiempoNav.toFixed(3) + " minutes looking at this";
+  document.getElementById("demo").innerHTML = "Great! you spent: " + tiempoNav.toFixed(3) + " minutes looking at this";*/
 //alert("Bienvenida(o) / Bem-vindo / Welcome \n I want to try I different way of surfing through this web. \n So explore, hope you enjoy!");
 
 //var $myCanvas = $('#myCanvas');
@@ -75,6 +76,7 @@ var trazoArtsEng =false;
 var trazoArtsEduc =false;
 var trazoEngEduc =false;
 var trazoEngEducArts =false;
+var activo =0;
 
 function preload() {
   // Ensure the .ttf or .otf font stored in the assets directory
@@ -108,7 +110,7 @@ function setup() {
   //sliderCurva = createSlider(0, 100, 10); //17 es el valor de apenas contacto entre los círculos
 
     // Set the position of slider on the canvas
-  sliderContacto.position(anchoPantalla*0.5, altoPantalla*0.9 ); //al parecer esta locaclizacion es respecto a la pantalla gral
+  sliderContacto.position(anchoPantalla*0.85, altoPantalla*0.95 ); //al parecer esta locaclizacion es respecto a la pantalla gral
   sliderContacto.input(escribir);
   radioGral = canvas.width*sliderContacto.value()/100;
   radioGralPrev = radioGral;
@@ -131,6 +133,7 @@ function setup() {
 function draw() {
   //background(black);
   radioGral = canvas.width*sliderContacto.value()/100;
+  activo=0;
   //RedibujarCirculos();
   if(radioGral!=radioGralPrev){
     //background(0);
@@ -140,11 +143,12 @@ function draw() {
   }
 
 
-
+  cursor(HAND, posX,posY);
   //circle(canvas.width/2,canvas.height/2, radioGral);
   valorColorPx = get(mouseX,mouseY);
   if(valorColorPx[0]==valorColorPx[1] && valorColorPx[0]!=0){
       print("Engineer");
+      activo=1;
 
 
       /*var rango =[90, 210];
@@ -174,13 +178,16 @@ function draw() {
     }
   else if(valorColorPx[1]==valorColorPx[2]&& valorColorPx[1]!=0){
     print("Arts");
+    activo=2;
 
   }
   else if(valorColorPx[0]==valorColorPx[2] && valorColorPx[0]!=0){
     print("Education");
+    activo=3;
 
   }
   else if(valorColorPx[1]>valorColorPx[0] && valorColorPx[1]>valorColorPx[2] && (valorColorPx[1]-valorColorPx[2])>100){
+    activo=4;
     print("Eng & Arts");
     print(valorColorPx);
     noFill();
@@ -197,10 +204,8 @@ function draw() {
     }
   }
   else if(valorColorPx[0]>valorColorPx[1] && valorColorPx[0]>valorColorPx[2]){
+    activo=5;
     print("Eng & Education");
-
-
-
 
     if(!trazoEngEduc){
       translate(centroGral[0], centroGral[1]);
@@ -211,7 +216,6 @@ function draw() {
       stroke(255);
       text("Closing digital gaps",radioCirc1/4, radioCirc1*3/4);
 
-
     bezier(0,radioCirc1/4,(mouseX)/4,((radioCirc1/4)-mouseY)/6,
     (-mouseX)/4,((radioCirc1/4)-mouseY)*5/6,0, radioCirc1*3/4);
     trazoEngEduc=true;
@@ -219,19 +223,14 @@ function draw() {
     rotate(PI/4.0);
     translate(-centroGral[0], -centroGral[1]);
     }
-
-
   }
   else if(valorColorPx[2]>valorColorPx[0] && valorColorPx[2]>valorColorPx[1]){
+    activo=6;
     print("Arts & Education");
     noFill();
     stroke(255);
     textAlign(CENTER);
     textSize(30);
-
-
-
-
 
     if(!trazoArtsEduc){
 
@@ -252,6 +251,7 @@ function draw() {
 
   }
   else if (!(valorColorPx[0]==0 && valorColorPx[1]==0 && valorColorPx[2]==0)){
+    activo=7;
     print("Magia");
 
     if(!trazoEngEducArts){
@@ -261,7 +261,7 @@ function draw() {
       textSize(35);
       noFill();
       stroke(255);
-      text("Magic!",0,0);
+      text("Magic!",-radioCirc1/8,0);
       trazoEngEducArts=true;
       translate(-centroGral[0], -centroGral[1]);
     }
@@ -269,6 +269,7 @@ function draw() {
   else{
     if(Eng==1){Eng=2;}
     else if(Eng==3){Eng =0;}
+    cursor(ARROW, posX,posY);
 
   }
   }
@@ -328,22 +329,16 @@ function branch(length){
     }
 }
 
-function mouseReleased(){
-  if(Eng == true && conteoClicks < 7){
-    ptoBez[conteoClicks] = mouseX;
-    ptoBez[conteoClicks+1] = mouseY;
-    conteoClicks= conteoClicks+2;
+function mouseClicked(){
+  if(activo!=0 && !abierto){
+    openNav();
   }
-  else if(conteoClicks==8){
-    bezier(ptoBez[0],ptoBez[1],ptoBez[2],ptoBez[3],ptoBez[4],ptoBez[5],ptoBez[6],ptoBez[7]);
-  }
-
 }
 
 function escribir(){
       //if(!textoEscrito){
       textAlign(LEFT);
-      textSize(35);
+      textSize(40);
       noFill();
       stroke(255);
       text('Education', centroC1[0]-radioCirc1/4, centroC1[1]+radioCirc1*3/8);
@@ -500,8 +495,42 @@ function pauseAudio() {
   x.pause();
 }
 
+function openNav() {
+var info = JSON.parse(textoEng);
 
-function changeBG() {
-  var val = random(255);
-  background(val);
+var nodeTitulo = document.createElement("h2");
+var titulo = document.createTextNode(info.Eng[1].Tit);
+nodeTitulo.appendChild(titulo);
+
+var node = document.createElement("P");
+var textnode = document.createTextNode(info.Eng[1].Texto);         // Create a text node
+node.appendChild(textnode);
+
+var linkNode = document.createElement("a");
+linkNode.innerHTML = info.Eng[1].url;
+linkNode.href = info.Eng[1].url;
+
+var imgNode = document.createElement("img");
+imgNode.src =  info.Eng[1].image;
+imgNode.width = anchoPantalla/8;
+imgNode.height = anchoPantalla/8;
+
+
+document.getElementById("contenido").appendChild(imgNode);
+document.getElementById("contenido").appendChild(nodeTitulo);
+document.getElementById("contenido").appendChild(node);
+document.getElementById("contenido").appendChild(linkNode);
+
+  document.getElementById("myNav").style.width = "50%";
+  //document.getElementById("myNav").style.display = "inline";
+  abierto=true;
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+  //document.getElementById("myNav").style.display = "none";
+  abierto=false;
+  document.getElementById("contenido").innerHTML = "";
+
 }

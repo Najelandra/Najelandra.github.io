@@ -11,30 +11,37 @@
         <source src="recursos/reel.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
       </audio>
-      <p>Click the buttons to play or pause the audio.</p>
+      <!-- <p>Click the buttons to play or pause the audio.</p>
 
       <button onclick="playAudio()" type="button"> &#9658 Audio </button>
-      <button onclick="pauseAudio()" type="button"> &#10074&#10074 Audio</button>
+      <button onclick="pauseAudio()" type="button"> &#10074&#10074 Audio</button> -->
 
+      <div id="myNav" class="overlay">
 
+        <!-- Button to close the overlay navigation -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <h2>EXPERIENCE</h2>
+        <!-- Overlay content -->
+        <div id="contenido" class="overlay-content">
+
+        </div>
+
+      </div>
 
       <table >
          <tr>
             <th>
-              <div class="fotoPerfil">
+
               <img src="img/perfilBN.jpg" alt="Avatar">
-              </div>
+
 
               <h1>Hi! I'm Nina 🌋 </h1>
 
               <div id=perfil>
-                Mechatronics engineer with experience in software quality assurance and software and hardware tasks.
-                Collaborator in science-art projects and educational projects. Proactive and creative,
-                ready to share new experiences with other people, strong teamwork, self-learning skills.
-                Seeking for expand my knowledge. I’m very interested in technical local development and open source models.
+                I love understand how things work and I keep myself wondering... so I studied Mechatronics engineering trying to find all the answers... and guess what?... They weren't there, but luckly I found a lot of clues and above all I knew a lot of people with great curiosity who teached me how to search and to ask the right questions... at the same time I found that my passion is to create using many tools so I went deeper in arts research and spent my whole free time in learning theater and again wonderful people appeared and show me a completely new world where imagination is the only rule. I've learnt how to bring together these aparently distant worlds and share my curiosity with others through education where I'm free to explore and encourage others to keep asking!
               </div>
               <div id="piePag">
-                (🌋 This is a Quechua word, it means: fire)
+                (🌋 By the way, Nina is a Quechua word, it means fire)
               </div>
 
 
@@ -58,6 +65,7 @@
      <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <script src="jcanvas.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+    <script src="info.js"></script>
     <script src="interactivo.js"></script>
 
     </body>
