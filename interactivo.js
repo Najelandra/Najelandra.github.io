@@ -77,11 +77,12 @@ var trazoArtsEduc =false;
 var trazoEngEduc =false;
 var trazoEngEducArts =false;
 var activo =0;
+var activoAnt =0;
 
 function preload() {
   // Ensure the .ttf or .otf font stored in the assets directory
   // is loaded before setup() and draw() are called
-  miFuente = loadFont('recursos/ReenieBeanie-Regular.ttf');
+  //miFuente = loadFont('recursos/ReenieBeanie-Regular.ttf');
 }
 
 
@@ -114,7 +115,7 @@ function setup() {
   sliderContacto.input(escribir);
   radioGral = canvas.width*sliderContacto.value()/100;
   radioGralPrev = radioGral;
-  textFont(miFuente);
+  //textFont(miFuente);
   //rotate(PI / 10.0);
   for(var i=10; i<45;i=i+5){
     RedibujarCirculos();
@@ -330,8 +331,11 @@ function branch(length){
 }
 
 function mouseClicked(){
-  if(activo!=0 && !abierto){
+  if(activo!=0 && activo!=activoAnt){
+    console.log("sí");
     openNav();
+    activoAnt = activo;
+
   }
 }
 
@@ -496,30 +500,52 @@ function pauseAudio() {
 }
 
 function openNav() {
+document.getElementById("contenido").innerHTML = "";
+console.log("clic: "+ activo);
 var info = JSON.parse(textoEng);
 
-var nodeTitulo = document.createElement("h2");
-var titulo = document.createTextNode(info.Eng[1].Tit);
-nodeTitulo.appendChild(titulo);
+if(activo==1){
 
-var node = document.createElement("P");
-var textnode = document.createTextNode(info.Eng[1].Texto);         // Create a text node
-node.appendChild(textnode);
+for (var i=0; i< info.Eng.length; i++){
+  console.log(info.Eng[i].Tit);
+  var nodeTitulo = document.createElement("h2");
+  var titulo = document.createTextNode(info.Eng[i].Tit);
+  nodeTitulo.appendChild(titulo);
 
-var linkNode = document.createElement("a");
-linkNode.innerHTML = info.Eng[1].url;
-linkNode.href = info.Eng[1].url;
-
-var imgNode = document.createElement("img");
-imgNode.src =  info.Eng[1].image;
-imgNode.width = anchoPantalla/8;
-imgNode.height = anchoPantalla/8;
+  var node = document.createElement("P");
+  var textnode = document.createTextNode(info.Eng[i].Texto);         // Create a text node
+  node.appendChild(textnode);
 
 
-document.getElementById("contenido").appendChild(imgNode);
-document.getElementById("contenido").appendChild(nodeTitulo);
-document.getElementById("contenido").appendChild(node);
-document.getElementById("contenido").appendChild(linkNode);
+  var linkNode = document.createElement("a");
+
+  linkNode.innerHTML = info.Eng[i].url;
+  linkNode.href = info.Eng[i].url;
+  node.appendChild(linkNode);
+
+  if(info.Eng[i].otros!=null){
+    var subtitulo = document.createElement("h3");
+    var subText = document.createTextNode(info.Eng[i].otros);
+    subtitulo.appendChild(subText);
+    document.getElementById("contenido").appendChild(subtitulo);
+  }
+
+  if(info.Eng[i].image!=""){
+    var imgNode = document.createElement("img");
+    imgNode.src =  info.Eng[i].image;
+    imgNode.width = anchoPantalla/6;
+    imgNode.height = anchoPantalla/6;
+    document.getElementById("contenido").appendChild(imgNode);
+  }
+
+  document.getElementById("contenido").appendChild(nodeTitulo);
+  document.getElementById("contenido").appendChild(node);
+  //document.getElementById("contenido").appendChild(linkNode);
+  }
+}
+else{
+
+}
 
   document.getElementById("myNav").style.width = "50%";
   //document.getElementById("myNav").style.display = "inline";
@@ -532,5 +558,6 @@ function closeNav() {
   //document.getElementById("myNav").style.display = "none";
   abierto=false;
   document.getElementById("contenido").innerHTML = "";
-
+  activo=0;
+  activoAnt=0;
 }
