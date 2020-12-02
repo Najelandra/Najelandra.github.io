@@ -153,6 +153,10 @@ img{
   text-align: left;*/
 }
 
+iframe {
+border: 0px;
+}
+
 #contenido{
 
 }
