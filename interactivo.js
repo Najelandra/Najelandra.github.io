@@ -82,7 +82,7 @@ var activoAnt =0;
 function preload() {
   // Ensure the .ttf or .otf font stored in the assets directory
   // is loaded before setup() and draw() are called
-  //miFuente = loadFont('recursos/ReenieBeanie-Regular.ttf');
+  miFuente = loadFont('recursos/ReenieBeanie-Regular.ttf');
 }
 
 
@@ -115,7 +115,7 @@ function setup() {
   sliderContacto.input(escribir);
   radioGral = canvas.width*sliderContacto.value()/100;
   radioGralPrev = radioGral;
-  //textFont(miFuente);
+  textFont(miFuente);
   //rotate(PI / 10.0);
   for(var i=10; i<45;i=i+5){
     RedibujarCirculos();
@@ -696,12 +696,106 @@ else if(activo==3){
       document.getElementById("contenido").appendChild(videoNode);
     }
     }
-//   <video width="320" height="240" controls>
-//   <source src="movie.mp4" type="video/mp4">
-//   <source src="movie.ogg" type="video/ogg">
-// Your browser does not support the video tag.
-// </video>
+}
+else if(activo==4){ //ing y artes
 
+  for (var i=0; i< info.ArtsEng.length; i++){
+    //console.log(info.Eng[i].Tit);
+    var nodeTitulo = document.createElement("h2");
+    var titulo = document.createTextNode(info.ArtsEng[i].Tit);
+    nodeTitulo.appendChild(titulo);
+
+    var node = document.createElement("P");
+    var textnode = document.createTextNode(info.ArtsEng[i].Texto);         // Create a text node
+    node.appendChild(textnode);
+
+    if(info.ArtsEng[i].url!=null){
+    var linkNode = document.createElement("a");
+
+    linkNode.innerHTML = info.ArtsEng[i].urlT;
+    linkNode.href = info.ArtsEng[i].url;
+    linkNode.target="_blank";
+    node.appendChild(linkNode);}
+
+    if(info.ArtsEng[i].otros!=null){
+      var subtitulo = document.createElement("h3");
+      var subText = document.createTextNode(info.ArtsEng[i].otros);
+      subtitulo.appendChild(subText);
+      document.getElementById("contenido").appendChild(subtitulo);
+    }
+
+    document.getElementById("contenido").appendChild(nodeTitulo);
+
+    if(info.ArtsEng[i].image!=""){
+      var imgNode = document.createElement("img");
+      imgNode.src =  info.ArtsEng[i].image;
+      imgNode.width = anchoPantalla/6;
+      imgNode.height = altoPantalla/4.5;
+      document.getElementById("contenido").appendChild(imgNode);
+    }
+
+
+    document.getElementById("contenido").appendChild(node);
+    //document.getElementById("contenido").appendChild(linkNode);
+
+    if(info.ArtsEng[i].video!=null){
+      console.log("si hay video");
+      var videoNode = document.createElement("iframe");
+      videoNode.src = info.ArtsEng[i].video;
+      videoNode.width = anchoPantalla/3;
+      videoNode.height = altoPantalla/3;
+      document.getElementById("contenido").appendChild(videoNode);
+    }
+  }
+}
+else if(activo==5){ //ing y educación
+
+  for (var i=0; i< info.EngEduc.length; i++){
+    //console.log(info.Eng[i].Tit);
+    var nodeTitulo = document.createElement("h2");
+    var titulo = document.createTextNode(info.EngEduc[i].Tit);
+    nodeTitulo.appendChild(titulo);
+
+    var node = document.createElement("P");
+    var textnode = document.createTextNode(info.EngEduc[i].Texto);         // Create a text node
+    node.appendChild(textnode);
+
+    if(info.EngEduc[i].url!=null){
+    var linkNode = document.createElement("a");
+
+    linkNode.innerHTML = info.EngEduc[i].urlT;
+    linkNode.href = info.EngEduc[i].url;
+    linkNode.target="_blank";
+    node.appendChild(linkNode);}
+
+    if(info.EngEduc[i].otros!=null){
+      var subtitulo = document.createElement("h3");
+      var subText = document.createTextNode(info.EngEduc[i].otros);
+      subtitulo.appendChild(subText);
+      document.getElementById("contenido").appendChild(subtitulo);
+    }
+
+    if(info.EngEduc[i].image!=""){
+      var imgNode = document.createElement("img");
+      imgNode.src =  info.EngEduc[i].image;
+      imgNode.width = anchoPantalla/6;
+      imgNode.height = anchoPantalla/6;
+      document.getElementById("contenido").appendChild(imgNode);
+    }
+
+    document.getElementById("contenido").appendChild(nodeTitulo);
+    document.getElementById("contenido").appendChild(node);
+    //document.getElementById("contenido").appendChild(linkNode);
+
+    if(info.EngEduc[i].video!=null){
+      console.log("si hay video");
+      var videoNode = document.createElement("iframe");
+      videoNode.src = info.EngEduc[i].video;
+      videoNode.width = anchoPantalla/4;
+      videoNode.height = altoPantalla/4;
+      document.getElementById("contenido").appendChild(videoNode);
+    }
+  }
 }
 else if(activo==7){
 
@@ -747,8 +841,8 @@ else if(activo==7){
       console.log("si hay video");
       var videoNode = document.createElement("iframe");
       videoNode.src = info.EngEducArts[i].video;
-      videoNode.width = anchoPantalla/3.5;
-      videoNode.height = altoPantalla/3.5;
+      videoNode.width = anchoPantalla/3;
+      videoNode.height = altoPantalla/3;
       document.getElementById("contenido").appendChild(videoNode);
     }
       document.getElementById("contenido").appendChild(node);
