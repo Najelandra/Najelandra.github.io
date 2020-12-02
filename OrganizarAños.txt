@@ -30,3 +30,18 @@ Propuesta taller de programación
 2018:
 Microfonia: ARcángelo Constantini
 
+____
+IDEAS PENDIENTES
+
+-My personal word cloud
+-contacto
+-Canto
+-Audios Robledo
+-Console.log como gif con mi nombre en la pantalla de inicio
+-Galería para hacer las imágenes más grandes y poder mostrar más
+-Embeber juegos mblock?
+-Math volunteer teacher: Algo con música y matemáticas
+-Algún mensaje al concluir la navegación: El recorrido del mouse, o el tiempo empleado
+
+Profe voluntaria de teatro
+Cosas freelancer: Hypercubus, Aplicación Yolis
