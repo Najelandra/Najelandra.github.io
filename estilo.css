@@ -160,3 +160,7 @@ border: 0px;
 #contenido{
 
 }
+
+#fotoPerfil {
+    cursor: pointer;
+}
