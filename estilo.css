@@ -164,3 +164,7 @@ border: 0px;
 #fotoPerfil {
     cursor: pointer;
 }
+
+#titulo{
+  white-space: nowrap;
+}
