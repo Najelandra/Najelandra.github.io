@@ -42,7 +42,8 @@ h2{
   align-content: center;
   font-family: 'Reenie Beanie', cursive;
   font-size: 50;
-  padding-top: 0;
+  margin-top: -15%;
+  /*Nota: Hubo que poner un número negativo porque el padding 0 no funciona en una celda de tabla*/
 }
 #perfil{
   font-weight:normal;
