@@ -46,7 +46,7 @@ h2{
 #perfil{
   font-weight:normal;
   font-size: 20px;
-  text-align: center;
+  text-align: left;
 }
 
 /* Create two equal columns that floats next to each other */
@@ -167,4 +167,8 @@ border: 0px;
 
 #titulo{
   white-space: nowrap;
+}
+
+#btnPortafolio{
+  text-align: right;
 }
