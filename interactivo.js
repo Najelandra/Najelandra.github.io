@@ -87,9 +87,19 @@ function preload() {
 
 
 function setup() {
-  var canvas = createCanvas(0.5*anchoPantalla, 0.8*altoPantalla);
+  
+  var canvas;
+  if(anchoPantalla<400){
+    canvas = createCanvas(0.9*anchoPantalla, 0.8*altoPantalla); 
+  }
+  else{
+    canvas = createCanvas(0.45*anchoPantalla, 0.8*altoPantalla);
+  }
+   
   //frameRate(10);
   canvas.parent('p5Canvas');
+  
+  
   //canvas.mouseOver(DibujarAreas);
   current = createVector(0,0);
   previous = createVector(0,0);
@@ -855,7 +865,13 @@ else if(activo==7){
 
 }
 
-  document.getElementById("myNav").style.width = "50%";
+  if(anchoPantalla<400){
+    document.getElementById("myNav").style.width = "100%";
+  }
+  else{
+    document.getElementById("myNav").style.width = "50%";
+  }
+  
   //document.getElementById("myNav").style.display = "inline";
   abierto=true;
 }
