@@ -47,6 +47,8 @@ var next = 0;
 var current;
 var previous;
 
+var porcPantalla = 1;
+
 var anchoPantalla = screen.width;
 var altoPantalla = screen.height;
 var centroGral = [anchoPantalla/2, altoPantalla/2]
@@ -91,9 +93,11 @@ function setup() {
   var canvas;
   if(anchoPantalla<400){
     canvas = createCanvas(0.9*anchoPantalla, 0.8*altoPantalla); 
+    porcPantalla =1;
   }
   else{
     canvas = createCanvas(0.45*anchoPantalla, 0.8*altoPantalla);
+    porcPantalla = 0.5
   }
    
   //frameRate(10);
@@ -156,51 +160,27 @@ function draw() {
 
   cursor(HAND, posX,posY);
   //circle(canvas.width/2,canvas.height/2, radioGral);
-  valorColorPx = get(mouseX,mouseY);
+  valorColorPx = get(mouseX,mouseY); //toma el color de la posición en la que se encuentra el mouse
   if(valorColorPx[0]==valorColorPx[1] && valorColorPx[0]!=0){
-      print("Engineer");
+     // print("Engineer");
       activo=1;
 
 
-      /*var rango =[90, 210];
-      var paso = (abs(rango[1])-abs(rango[0])*PI/180)/eng.length;
-      if(Eng==0){
-      for (var i=1; i<= eng.length; i++){
-        hijos(centroC3,radioCirc3/2,(rango[0]-paso*(i))*PI/180,eng[i-1]);
-      }
-      Eng=1;
-      }
-      else if(Eng==2){
-        background(0);
-        RedibujarCirculos();
-        Eng=3;
-      }*/
-
-
-        /*if(!dibujado){
-        translate(canvas.width / 2, canvas.height);
-        stroke(50, 250, 50);
-        branch(100);
-        translate(0, -100);
-        dibujado=true;
-      }*/
-      //bezier(centroC3[0]+(radioCirc3*cos(anguloInicio)),centroC3[1]+(radioCirc3*sin(anguloInicio)),centroC3[0]+(radioCirc3*cos(anguloInicio))+sliderCurva.value(),centroC3[0]+sliderCurva.value(),2*radioCirc3-10,centroC3[0]-sliderCurva.value(),2*radioCirc3, canvas.height/2);
-
     }
   else if(valorColorPx[1]==valorColorPx[2]&& valorColorPx[1]!=0){
-    print("Arts");
+    //print("Arts");
     activo=2;
 
   }
   else if(valorColorPx[0]==valorColorPx[2] && valorColorPx[0]!=0){
-    print("Education");
+    //print("Education");
     activo=3;
 
   }
   else if(valorColorPx[1]>valorColorPx[0] && valorColorPx[1]>valorColorPx[2] && (valorColorPx[1]-valorColorPx[2])>100){
     activo=4;
-    print("Eng & Arts");
-    print(valorColorPx);
+    //print("Eng & Arts");
+    //print(valorColorPx);
     noFill();
     textAlign(CENTER);
     textSize(30);
@@ -216,7 +196,7 @@ function draw() {
   }
   else if(valorColorPx[0]>valorColorPx[1] && valorColorPx[0]>valorColorPx[2]){
     activo=5;
-    print("Eng & Education");
+    //print("Eng & Education");
 
     if(!trazoEngEduc){
       translate(centroGral[0], centroGral[1]);
@@ -237,7 +217,7 @@ function draw() {
   }
   else if(valorColorPx[2]>valorColorPx[0] && valorColorPx[2]>valorColorPx[1]){
     activo=6;
-    print("Arts & Education");
+    //print("Arts & Education");
     noFill();
     stroke(255);
     textAlign(CENTER);
@@ -263,7 +243,7 @@ function draw() {
   }
   else if (!(valorColorPx[0]==0 && valorColorPx[1]==0 && valorColorPx[2]==0)){
     activo=7;
-    print("Magia");
+    //print("Magia");
 
     if(!trazoEngEducArts){
 
@@ -342,7 +322,7 @@ function branch(length){
 
 function mouseClicked(){
   if(activo!=0 && activo!=activoAnt){
-    console.log("sí");
+    //console.log("sí");
     openNav();
     activoAnt = activo;
 
@@ -511,362 +491,94 @@ function pauseAudio() {
 
 function openNav() {
 document.getElementById("contenido").innerHTML = "";
-console.log("clic: "+ activo);
+//console.log("clic: "+ activo);
 var info = JSON.parse(textoEng);
+var infoDetalle;
+switch (activo){
+  case 1:
+    infoDetalle = info.Eng;
+  break;
+  case 2:
+    infoDetalle = info.Arts;
+  break;
+  case 3:
+    infoDetalle = info.Edu;
+  break;
+  case 4:
+    infoDetalle = info.ArtsEng;
+  break;
+  case 5:
+    infoDetalle = info.EngEduc;
+  break;
+  case 6:
+    infoDetalle = info.ArtsEduc;
+  break;
+  case 7:
+    infoDetalle = info.EngEducArts;
+  break;
+  default:
+    infoDetalle = info.EngEducArts;
+}
 
-if(activo==1){
-
-for (var i=0; i< info.Eng.length; i++){
+for (var i=0; i< infoDetalle.length; i++){
   //console.log(info.Eng[i].Tit);
   var nodeTitulo = document.createElement("h2");
-  var titulo = document.createTextNode(info.Eng[i].Tit);
+  var titulo = document.createTextNode(infoDetalle[i].Tit);
   nodeTitulo.appendChild(titulo);
 
   var node = document.createElement("P");
-  var textnode = document.createTextNode(info.Eng[i].Texto);         // Create a text node
+  var textnode = document.createTextNode(infoDetalle[i].Texto);         // Create a text node
   node.appendChild(textnode);
 
-
+  if(infoDetalle[i].url!=null){
   var linkNode = document.createElement("a");
 
-  linkNode.innerHTML = info.Eng[i].url;
-  linkNode.href = info.Eng[i].url;
+  linkNode.innerHTML = infoDetalle[i].urlT;
+  linkNode.href = infoDetalle[i].url;
   linkNode.target="_blank";
-  node.appendChild(linkNode);
+  node.appendChild(linkNode);}
 
-  if(info.Eng[i].otros!=null){
+  if(infoDetalle[i].otros!=null){
     var subtitulo = document.createElement("h3");
-    var subText = document.createTextNode(info.Eng[i].otros);
+    var subText = document.createTextNode(infoDetalle[i].otros);
     subtitulo.appendChild(subText);
     document.getElementById("contenido").appendChild(subtitulo);
   }
 
-  if(info.Eng[i].image!=""){
+  if(infoDetalle[i].image!=null){
     var imgNode = document.createElement("img");
-    imgNode.src =  info.Eng[i].image;
-    imgNode.width = anchoPantalla/6;
-    imgNode.height = anchoPantalla/6;
+    imgNode.src =  infoDetalle[i].image;
+    imgNode.width = canvas.width/2.4;
+    
+    
     document.getElementById("contenido").appendChild(imgNode);
   }
 
   document.getElementById("contenido").appendChild(nodeTitulo);
   document.getElementById("contenido").appendChild(node);
-  //document.getElementById("contenido").appendChild(linkNode);
-  }
+
+  if(infoDetalle[i].video!=null){
+    var videoNode = document.createElement("iframe");
+    videoNode.src = infoDetalle[i].video;
+    videoNode.width = canvas.width/1.5;
+    videoNode.height = canvas.height/1.5;
+    document.getElementById("contenido").appendChild(videoNode);
+    }
+
+    if(infoDetalle[i].imgVid!=null){ //lo agregué porque el vídeo de Creatura no funcionaba
+      var imgVideoNode = document.createElement("img");
+      imgVideoNode.src = infoDetalle[i].imgVid;
+      imgVideoNode.width = canvas.width/1.5;
+      //imgVideoNode.height = auto;
+      imgVideoNode.style.borderRadius = 0;
+      document.getElementById("contenido").appendChild(imgVideoNode);
+      }
 }
-else if(activo==2){
-
-  for (var i=0; i< info.Arts.length; i++){
-    //console.log(info.Eng[i].Tit);
-    var nodeTitulo = document.createElement("h2");
-    var titulo = document.createTextNode(info.Arts[i].Tit);
-    nodeTitulo.appendChild(titulo);
-
-    var node = document.createElement("P");
-    var textnode = document.createTextNode(info.Arts[i].Texto);         // Create a text node
-    node.appendChild(textnode);
-
-    if(info.Arts[i].url!=null){
-    var linkNode = document.createElement("a");
-
-    linkNode.innerHTML = info.Arts[i].urlT;
-    linkNode.href = info.Arts[i].url;
-    linkNode.target="_blank";
-    node.appendChild(linkNode);}
-
-    if(info.Arts[i].otros!=null){
-      var subtitulo = document.createElement("h3");
-      var subText = document.createTextNode(info.Arts[i].otros);
-      subtitulo.appendChild(subText);
-      document.getElementById("contenido").appendChild(subtitulo);
-    }
-
-    if(info.Arts[i].image!=null){
-      var imgNode = document.createElement("img");
-      imgNode.src =  info.Arts[i].image;
-      imgNode.width = anchoPantalla/6;
-      imgNode.height = anchoPantalla/6;
-      document.getElementById("contenido").appendChild(imgNode);
-    }
-
-    document.getElementById("contenido").appendChild(nodeTitulo);
-    document.getElementById("contenido").appendChild(node);
-    //document.getElementById("contenido").appendChild(linkNode);
-
-    if(info.Arts[i].video!=null){
-      console.log("si hay video");
-      var videoNode = document.createElement("iframe");
-      videoNode.src = info.Arts[i].video;
-      videoNode.width = anchoPantalla/4;
-      videoNode.height = altoPantalla/4;
-      document.getElementById("contenido").appendChild(videoNode);
-    }
-    }
- }
-else if(activo==6){
-
-  for (var i=0; i< info.ArtsEduc.length; i++){
-    //console.log(info.Eng[i].Tit);
-    var nodeTitulo = document.createElement("h2");
-    var titulo = document.createTextNode(info.ArtsEduc[i].Tit);
-    nodeTitulo.appendChild(titulo);
-
-    var node = document.createElement("P");
-    var textnode = document.createTextNode(info.ArtsEduc[i].Texto);         // Create a text node
-    node.appendChild(textnode);
-
-    if(info.ArtsEduc[i].url!=null){
-    var linkNode = document.createElement("a");
-
-    linkNode.innerHTML = info.ArtsEduc[i].urlT;
-    linkNode.href = info.ArtsEduc[i].url;
-    linkNode.target="_blank";
-    node.appendChild(linkNode);}
-
-    if(info.ArtsEduc[i].otros!=null){
-      var subtitulo = document.createElement("h3");
-      var subText = document.createTextNode(info.ArtsEduc[i].otros);
-      subtitulo.appendChild(subText);
-      document.getElementById("contenido").appendChild(subtitulo);
-    }
-
-    if(info.ArtsEduc[i].image!=""){
-      var imgNode = document.createElement("img");
-      imgNode.src =  info.ArtsEduc[i].image;
-      imgNode.width = anchoPantalla/6;
-      imgNode.height = anchoPantalla/6;
-      document.getElementById("contenido").appendChild(imgNode);
-    }
-
-    document.getElementById("contenido").appendChild(nodeTitulo);
-    document.getElementById("contenido").appendChild(node);
-    //document.getElementById("contenido").appendChild(linkNode);
-
-    if(info.ArtsEduc[i].video!=null){
-      console.log("si hay video");
-      var videoNode = document.createElement("iframe");
-      videoNode.src = info.ArtsEduc[i].video;
-      videoNode.width = anchoPantalla/4;
-      videoNode.height = altoPantalla/4;
-      document.getElementById("contenido").appendChild(videoNode);
-    }
-    }
-//   <video width="320" height="240" controls>
-//   <source src="movie.mp4" type="video/mp4">
-//   <source src="movie.ogg" type="video/ogg">
-// Your browser does not support the video tag.
-// </video>
-
-}
-else if(activo==3){
-
-  for (var i=0; i< info.Edu.length; i++){
-    //console.log(info.Eng[i].Tit);
-    var nodeTitulo = document.createElement("h2");
-    var titulo = document.createTextNode(info.Edu[i].Tit);
-    nodeTitulo.appendChild(titulo);
-
-    var node = document.createElement("P");
-    var textnode = document.createTextNode(info.Edu[i].Texto);         // Create a text node
-    node.appendChild(textnode);
-
-    if(info.Edu[i].url!=null){
-    var linkNode = document.createElement("a");
-
-    linkNode.innerHTML = info.Edu[i].urlT;
-    linkNode.href = info.Edu[i].url;
-    linkNode.target="_blank";
-    node.appendChild(linkNode);}
-
-    if(info.Edu[i].otros!=null){
-      var subtitulo = document.createElement("h3");
-      var subText = document.createTextNode(info.Edu[i].otros);
-      subtitulo.appendChild(subText);
-      document.getElementById("contenido").appendChild(subtitulo);
-    }
-
-    if(info.Edu[i].image!=""){
-      var imgNode = document.createElement("img");
-      imgNode.src =  info.Edu[i].image;
-      imgNode.width = anchoPantalla/6;
-      imgNode.height = anchoPantalla/6;
-      document.getElementById("contenido").appendChild(imgNode);
-    }
-
-    document.getElementById("contenido").appendChild(nodeTitulo);
-    document.getElementById("contenido").appendChild(node);
-    //document.getElementById("contenido").appendChild(linkNode);
-
-    if(info.Edu[i].video!=null){
-      console.log("si hay video");
-      var videoNode = document.createElement("iframe");
-      videoNode.src = info.Edu[i].video;
-      videoNode.width = anchoPantalla/4;
-      videoNode.height = altoPantalla/4;
-      document.getElementById("contenido").appendChild(videoNode);
-    }
-    }
-}
-else if(activo==4){ //ing y artes
-
-  for (var i=0; i< info.ArtsEng.length; i++){
-    //console.log(info.Eng[i].Tit);
-    var nodeTitulo = document.createElement("h2");
-    var titulo = document.createTextNode(info.ArtsEng[i].Tit);
-    nodeTitulo.appendChild(titulo);
-
-    var node = document.createElement("P");
-    var textnode = document.createTextNode(info.ArtsEng[i].Texto);         // Create a text node
-    node.appendChild(textnode);
-
-    if(info.ArtsEng[i].url!=null){
-    var linkNode = document.createElement("a");
-
-    linkNode.innerHTML = info.ArtsEng[i].urlT;
-    linkNode.href = info.ArtsEng[i].url;
-    linkNode.target="_blank";
-    node.appendChild(linkNode);}
-
-    if(info.ArtsEng[i].otros!=null){
-      var subtitulo = document.createElement("h3");
-      var subText = document.createTextNode(info.ArtsEng[i].otros);
-      subtitulo.appendChild(subText);
-      document.getElementById("contenido").appendChild(subtitulo);
-    }
-
-    document.getElementById("contenido").appendChild(nodeTitulo);
-
-    if(info.ArtsEng[i].image!=""){
-      var imgNode = document.createElement("img");
-      imgNode.src =  info.ArtsEng[i].image;
-      imgNode.width = anchoPantalla/6;
-      imgNode.height = altoPantalla/4.5;
-      document.getElementById("contenido").appendChild(imgNode);
-    }
 
 
-    document.getElementById("contenido").appendChild(node);
-    //document.getElementById("contenido").appendChild(linkNode);
-
-    if(info.ArtsEng[i].video!=null){
-      console.log("si hay video");
-      var videoNode = document.createElement("iframe");
-      videoNode.src = info.ArtsEng[i].video;
-      videoNode.width = anchoPantalla/3;
-      videoNode.height = altoPantalla/3;
-      document.getElementById("contenido").appendChild(videoNode);
-    }
-  }
-}
-else if(activo==5){ //ing y educación
-
-  for (var i=0; i< info.EngEduc.length; i++){
-    //console.log(info.Eng[i].Tit);
-    var nodeTitulo = document.createElement("h2");
-    var titulo = document.createTextNode(info.EngEduc[i].Tit);
-    nodeTitulo.appendChild(titulo);
-
-    var node = document.createElement("P");
-    var textnode = document.createTextNode(info.EngEduc[i].Texto);         // Create a text node
-    node.appendChild(textnode);
-
-    if(info.EngEduc[i].url!=null){
-    var linkNode = document.createElement("a");
-
-    linkNode.innerHTML = info.EngEduc[i].urlT;
-    linkNode.href = info.EngEduc[i].url;
-    linkNode.target="_blank";
-    node.appendChild(linkNode);}
-
-    if(info.EngEduc[i].otros!=null){
-      var subtitulo = document.createElement("h3");
-      var subText = document.createTextNode(info.EngEduc[i].otros);
-      subtitulo.appendChild(subText);
-      document.getElementById("contenido").appendChild(subtitulo);
-    }
-
-    if(info.EngEduc[i].image!=""){
-      var imgNode = document.createElement("img");
-      imgNode.src =  info.EngEduc[i].image;
-      imgNode.width = anchoPantalla/6;
-      imgNode.height = anchoPantalla/6;
-      document.getElementById("contenido").appendChild(imgNode);
-    }
-
-    document.getElementById("contenido").appendChild(nodeTitulo);
-    document.getElementById("contenido").appendChild(node);
-    //document.getElementById("contenido").appendChild(linkNode);
-
-    if(info.EngEduc[i].video!=null){
-      console.log("si hay video");
-      var videoNode = document.createElement("iframe");
-      videoNode.src = info.EngEduc[i].video;
-      videoNode.width = anchoPantalla/4;
-      videoNode.height = altoPantalla/4;
-      document.getElementById("contenido").appendChild(videoNode);
-    }
-  }
-}
-else if(activo==7){
-
-  for (var i=0; i< info.EngEducArts.length; i++){
-    //console.log(info.Eng[i].Tit);
-    var nodeTitulo = document.createElement("h2");
-    var titulo = document.createTextNode(info.EngEducArts[i].Tit);
-    nodeTitulo.appendChild(titulo);
-
-    var node = document.createElement("P");
-    var textnode = document.createTextNode(info.EngEducArts[i].Texto);         // Create a text node
-    node.appendChild(textnode);
-
-    if(info.EngEducArts[i].url!=null){
-    var linkNode = document.createElement("a");
-
-    linkNode.innerHTML = info.EngEducArts[i].urlT;
-    linkNode.href = info.EngEducArts[i].url;
-    linkNode.target="_blank";
-    node.appendChild(linkNode);
-    }
-
-  /*  if(info.EngEducArts[i].otros!=null){
-      var subtitulo = document.createElement("h3");
-      var subText = document.createTextNode(info.EngEducArts[i].otros);
-      subtitulo.appendChild(subText);
-      document.getElementById("contenido").appendChild(subtitulo);
-    }*/
-
-    if(info.EngEducArts[i].image!=""){
-      var imgNode = document.createElement("img");
-      imgNode.src =  info.EngEducArts[i].image;
-      imgNode.width = anchoPantalla/6;
-      imgNode.height = anchoPantalla/6;
-      document.getElementById("contenido").appendChild(imgNode);
-    }
-
-    document.getElementById("contenido").appendChild(nodeTitulo);
-
-    //document.getElementById("contenido").appendChild(linkNode);
-
-    if(info.EngEducArts[i].video!=null){
-      console.log("si hay video");
-      var videoNode = document.createElement("iframe");
-      videoNode.src = info.EngEducArts[i].video;
-      videoNode.width = anchoPantalla/3;
-      videoNode.height = altoPantalla/3;
-      document.getElementById("contenido").appendChild(videoNode);
-    }
-      document.getElementById("contenido").appendChild(node);
-    }
-//   <video width="320" height="240" controls>
-//   <source src="movie.mp4" type="video/mp4">
-//   <source src="movie.ogg" type="video/ogg">
-// Your browser does not support the video tag.
-// </video>
-
-}
 
   if(anchoPantalla<400){
-    document.getElementById("myNav").style.width = "100%";
+    document.getElementById("myNav").style.width = "90%";
   }
   else{
     document.getElementById("myNav").style.width = "50%";
