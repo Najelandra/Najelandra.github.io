@@ -65,7 +65,7 @@ var sliderContacto;
 //var sliderCurva;
 
 
-var dibujado=false;
+var dibujado=false; //para saber si ya terminó de dibujar por primera vez los círculos
 var Eng = 0;
 var Arts = false;
 var Educ = false;
@@ -121,13 +121,15 @@ function setup() {
   anguloInicio= 90;
 
   // Create the slider
-  sliderContacto = createSlider(0, 45, 10); //17 es el valor de apenas contacto entre los círculos
+  /*sliderContacto = createSlider(0, 45, 10); //17 es el valor de apenas contacto entre los círculos
   //sliderCurva = createSlider(0, 100, 10); //17 es el valor de apenas contacto entre los círculos
 
     // Set the position of slider on the canvas
   sliderContacto.position(anchoPantalla*0.85, altoPantalla*0.90 ); //al parecer esta locaclizacion es respecto a la pantalla gral
-  sliderContacto.input(escribir);
-  radioGral = canvas.width*sliderContacto.value()/100;
+  sliderContacto.input(escribir);*/ //esto no sé qué hace
+  
+  //radioGral = canvas.width*sliderContacto.value()/100;
+  radioGral = canvas.width*12/100;
   radioGralPrev = radioGral;
   textFont(miFuente);
   //rotate(PI / 10.0);
@@ -145,9 +147,20 @@ function setup() {
 
 }
 
+function sleep(millis){
+  const t1 = Date.now();
+  
+  while(Date.now()-t1 < millis){
+    //console.log(Date.now()-t1);
+  }
+  
+}
+
 function draw() {
   //background(black);
-  radioGral = canvas.width*sliderContacto.value()/100;
+
+  //radioGral = canvas.width*sliderContacto.value()/100;
+  radioGral = canvas.width*12/100;
   activo=0;
   //RedibujarCirculos();
   if(radioGral!=radioGralPrev){
@@ -327,6 +340,9 @@ function mouseClicked(){
     activoAnt = activo;
 
   }
+  else if (activo==activoAnt) {
+    closeNav();
+  }
 }
 
 function escribir(){
@@ -491,7 +507,7 @@ function pauseAudio() {
 
 function openNav() {
 document.getElementById("contenido").innerHTML = "";
-//console.log("clic: "+ activo);
+//El espacio de overlay se rellena con la información de acuerdo al área dónde se hizo clic
 var info = JSON.parse(textoEng);
 var infoDetalle;
 switch (activo){
@@ -549,8 +565,6 @@ for (var i=0; i< infoDetalle.length; i++){
     var imgNode = document.createElement("img");
     imgNode.src =  infoDetalle[i].image;
     imgNode.width = canvas.width/2.4;
-    
-    
     document.getElementById("contenido").appendChild(imgNode);
   }
 
@@ -561,17 +575,23 @@ for (var i=0; i< infoDetalle.length; i++){
     var videoNode = document.createElement("iframe");
     videoNode.src = infoDetalle[i].video;
     videoNode.width = canvas.width/1.5;
-    videoNode.height = canvas.height/1.5;
+    videoNode.height = canvas.height/2;
     document.getElementById("contenido").appendChild(videoNode);
     }
 
     if(infoDetalle[i].imgVid!=null){ //lo agregué porque el vídeo de Creatura no funcionaba
+      var linkImg = document.createElement("a");
+      linkImg.href = infoDetalle[i].imgVidURL;
+      linkImg.target="_blank";
+      
       var imgVideoNode = document.createElement("img");
       imgVideoNode.src = infoDetalle[i].imgVid;
       imgVideoNode.width = canvas.width/1.5;
       //imgVideoNode.height = auto;
       imgVideoNode.style.borderRadius = 0;
-      document.getElementById("contenido").appendChild(imgVideoNode);
+      imgVideoNode.style.paddingBottom = 5;
+      linkImg.appendChild(imgVideoNode);
+      document.getElementById("contenido").appendChild(linkImg);
       }
 }
 
