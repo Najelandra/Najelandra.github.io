@@ -1,9 +1,15 @@
 
 let playing, frec, ampli, osc;
+var palabra= "Hola!";
+var pos = 0;
+var restartDelay = 5;
 
+var palabra= "Working on it... bus it's going to be related with music an identity and math off course";
+var pos = 0;
+var restartDelay = 5;
 
 function setup() {
-  let cnv = createCanvas(100, 100);
+  let cnv = createCanvas(1000, 600);
   cnv.parent('p5CanvasSound');
   cnv.mousePressed(playOscillator);
   osc = new p5.Oscillator();
@@ -22,6 +28,20 @@ function draw() {
     // smooth the transitions by 0.1 seconds
     osc.freq(frec, 0.7);
     osc.amp(ampli, 0.5);
+  }
+
+  textFont('Georgia');
+  textSize(20);
+  
+  text(palabra.substring(0, pos + 1), 200, 300);
+
+  pos++;
+
+  // Check if we are at the end to restart animation
+  if (pos > palabra.length + restartDelay) {
+  //restart animation
+    pos = 0;
+    
   }
 }
 
