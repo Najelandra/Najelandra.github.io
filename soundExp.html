@@ -22,10 +22,11 @@
         let spectrum = fft.analyze();
 
         if (frameCount % 30 === 0 && window.AppInventor) {
-          window.AppInventor.setWebViewString("spectrum:" + spectrum[0]);
+          window.AppInventor.setWebViewString(spectrum[0]);
         }
       }
     </script>
   </body>
 </html>
+
 
