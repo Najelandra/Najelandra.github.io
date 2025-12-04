@@ -19,11 +19,13 @@
 
       function draw() {
         let bass = fft.getEnergy("bass");
+        let spectrum = fft.analyze();
 
         if (frameCount % 30 === 0 && window.AppInventor) {
-          window.AppInventor.setWebViewString("bass:" + bass.toFixed(0));
+          window.AppInventor.setWebViewString("spectrum:" + spectrum[0]);
         }
       }
     </script>
   </body>
 </html>
+
