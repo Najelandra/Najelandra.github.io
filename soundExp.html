@@ -18,16 +18,18 @@
       }
 
       function draw() {
-        let bass = fft.getEnergy("bass");
         let spectrum = fft.analyze();
+        let bass = fft.getEnergy("bass");
+        
 
         if (frameCount % 30 === 0 && window.AppInventor) {
-          window.AppInventor.setWebViewString(spectrum[100]);
+          window.AppInventor.setWebViewString(spectrum[10]);
         }
       }
     </script>
   </body>
 </html>
+
 
 
 
