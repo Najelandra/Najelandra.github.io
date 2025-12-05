@@ -10,23 +10,23 @@
       let mic, fft;
 
       function setup() {
-        createCanvas(256, 256);
-        colorMode(HSB);
-        angleMode(DEGREES);
-        //noCanvas();
+        //createCanvas(256, 256);
+        //colorMode(HSB);
+        //angleMode(DEGREES);
+        noCanvas();
         mic = new p5.AudioIn();
         mic.start();
         fft = new p5.FFT(0.9, 64);
         fft.setInput(mic);
-        w = width / 64;
+        //w = width / 64;
       }
 
       function draw() {
-        background(0);
+        //background(0);
         let spectrum = fft.analyze();
         
         let energy = fft.getEnergy(1000, 5000);
-        console.log(energy)
+        //console.log(energy)
 
         if (frameCount % 30 === 0 && window.AppInventor) {
           window.AppInventor.setWebViewString(spectrum[0]);
@@ -43,6 +43,7 @@
     </script>
   </body>
 </html>
+
 
 
 
